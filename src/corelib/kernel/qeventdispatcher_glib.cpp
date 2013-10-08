@@ -406,10 +406,16 @@ bool QEventDispatcherGlib::processEvents(QEventLoop::ProcessEventsFlags flags)
     QSystraceEvent systrace("io", "QEventDispatcher::processEvents");
 
     const bool canWait = (flags & QEventLoop::WaitForMoreEvents);
-    if (canWait)
-        emit aboutToBlock();
-    else
-        emit awake();
+
+    {
+        // Raise the loopLevel so that deleteLater() calls in or triggered
+        // by these signals will be processed from the main event loop.
+        QScopedLoopLevelCounter loopLevelCounter(d->threadData);
+        if (canWait)
+            emit aboutToBlock();
+        else
+            emit awake();
+    }
 
     // tell postEventSourcePrepare() and timerSource about any new flags
     QEventLoop::ProcessEventsFlags savedFlags = d->timerSource->processEventsFlags;

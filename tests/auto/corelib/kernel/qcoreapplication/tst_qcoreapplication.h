@@ -64,6 +64,7 @@ private slots:
     void threadedEventDelivery_data();
     void threadedEventDelivery();
     void addRemoveLibPaths();
+    void testDeferredDeleteFromAboutToBlock();
 };
 
 #endif // TST_QCOREAPPLICATION_H
