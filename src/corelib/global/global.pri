@@ -29,7 +29,8 @@ SOURCES += \
         global/qnumeric.cpp \
         global/qlogging.cpp \
         global/qhooks.cpp \
-        global/qversiontagging.cpp
+        global/qversiontagging.cpp \
+        global/qsystrace.cpp
 
 # qlibraryinfo.cpp includes qconfig.cpp
 INCLUDEPATH += $$QT_BUILD_TREE/src/corelib/global
@@ -44,6 +45,9 @@ if(linux*|hurd*):!cross_compile:!static:!*-armcc* {
    QMAKE_LFLAGS += -Wl,-e,qt_core_boilerplate
    prog=$$quote(if (/program interpreter: (.*)]/) { print $1; })
    DEFINES += ELF_INTERPRETER=\\\"$$system(LC_ALL=C readelf -l /bin/ls | perl -n -e \'$$prog\')\\\"
+
+   CONFIG += link_pkgconfig
+   libsystrace: PKGCONFIG_PRIVATE += systrace
 }
 
 slog2 {
