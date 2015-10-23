@@ -16,7 +16,7 @@
 
 Name:       qt5
 Summary:    Cross-platform application and UI framework
-Version:    5.0.2
+Version:    5.6.0
 Release:    1%{?dist}
 Group:      Qt/Qt
 License:    LGPLv2.1 with exception or GPLv3
